@@ -17,10 +17,8 @@ class Configuration{
     public function __construct(){
         $this->url =  'https://api.telegram.org/bot';
 
-        // $this->channel = getenv('TELEGRAM_CHANNEL_ID');
-        // $this->token = getenv('TELEGRAM_BOT_TOKEN');
-        $this->token ='5382161670:AAGbLJmimjE4ZO60PEBs97d7rOJdpaFxHpo';
-        $this->channel = '-1001749946940';
+        $this->channel = getenv('TELEGRAM_CHANNEL_ID');
+        $this->token = getenv('TELEGRAM_BOT_TOKEN');
     }
     
 }
