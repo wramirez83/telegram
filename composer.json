@@ -1,0 +1,20 @@
+{
+    "name": "wramirez83/telegram",
+    "description": "library for develop for sending telegram to message, include texts and files",
+    "type": "library",
+    "require": {
+       
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wramirez83\\Telegram\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wilson Ramirez Z",
+            "email": "wilson.rz@gmail.com"
+        }
+    ]
+}
