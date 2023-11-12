@@ -63,6 +63,26 @@ class Telegram extends Action{
     }
 
     /**
+     * The function "sendPhoto" sends a photo along with a message to a specified chat ID using the
+     * "sendImg" method of the "Action" class.
+     * 
+     * @param file The "file" parameter is the path or URL of the photo file that you want to send. It
+     * can be a local file path on your server or a URL pointing to an image file on the internet.
+     * @param message The message parameter is a string that represents the caption or description of
+     * the photo that you want to send.
+     * @param chatId The chatId parameter is used to specify the ID of the chat where the photo will be
+     * sent. It is an optional parameter, so if no chatId is provided, the photo will be sent to the
+     * default chat.
+     * 
+     * @return The sendPhoto function is returning the result of the sendImg method from the Action
+     * class.
+     */
+    public static function sendPhoto($file, $message, $chatId = ''){
+        $instance = new Action();
+        return $instance->sendImg($file, $message, $chatId);
+    }
+
+    /**
      * The function "curFile" returns a new CURLFile object using the provided file route.
      *
      * @param routeFile The parameter "routeFile" is the file path or URL of the file that you want to

@@ -2,7 +2,8 @@
 
 namespace Wramirez83\Telegram;
 
-class Action{
+class Action
+{
 
     protected $ch;
     protected $config;
@@ -16,7 +17,8 @@ class Action{
      *@description Call this method for each configuration
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->config = new Configuration();
     }
 
@@ -27,20 +29,23 @@ class Action{
      *
      * @return The response data is being returned as a json object.
      */
-    public function response($data){
+    public function response($data)
+    {
         return json_decode($data);
     }
     /**
      * It initializes the curl session.
      */
-    public function init(){
+    public function init()
+    {
         $this->ch = curl_init();
     }
 
     /**
      * It closes the curl connection.
      */
-    private function close(){
+    private function close()
+    {
         curl_close($this->ch);
     }
     /**
@@ -51,13 +56,14 @@ class Action{
      *
      * @return The response from the API.
      */
-    private function setUrl($url, $header = ["Accept: application/json"]){
+    private function setUrl($url, $header = ["Accept: application/json"])
+    {
 
-        if(!isset($this->config->token) && $this->config->token == '' && $url == '')
+        if (!isset($this->config->token) && $this->config->token == '' && $url == '')
             return ['ok' => false];
 
-        curl_setopt($this->ch , CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($this->ch , CURLOPT_URL, $this->config->url . $this->config->token . '/' . $url);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_URL, $this->config->url . $this->config->token . '/' . $url);
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, $header);
         $data = curl_exec($this->ch);
         return $this->response($data);
@@ -69,7 +75,8 @@ class Action{
      *
      * @return The method is returning the value of the setUrl method.
      */
-    public function getMe(){
+    public function getMe()
+    {
         return $this->setUrl('getMe');
     }
 
@@ -83,7 +90,8 @@ class Action{
      *
      * @return An array of all the channels that have been updated.
      */
-    public function allChannels($limit = 100, $offset = null, $timeout = null){
+    public function allChannels($limit = 100, $offset = null, $timeout = null)
+    {
         $post = [
             "offset" => $offset,
             "limit" => $limit,
@@ -105,8 +113,9 @@ class Action{
      *
      * @return The response from the server.
      */
-    public function sendMsg($message, $chatId =  '', $mode = 'Markdown'){
-        if($chatId == '')
+    public function sendMsg($message, $chatId =  '', $mode = 'Markdown')
+    {
+        if ($chatId == '')
             $chatId = $this->config->channel;
         $post = [
             'chat_id' => $chatId,
@@ -119,7 +128,6 @@ class Action{
         $data = $this->setUrl('sendMessage');
         $this->close();
         return $data;
-
     }
 
     /**
@@ -132,8 +140,9 @@ class Action{
      *
      * @return The response from the server.
      */
-    public function sendFile($file, $message = '', $chatId = ''){
-        if($chatId == '')
+    public function sendFile($file, $message = '', $chatId = '')
+    {
+        if ($chatId == '')
             $chatId = $this->config->channel;
         $post = [
             'chat_id' => $chatId,
@@ -148,8 +157,18 @@ class Action{
         return $data;
     }
 
-    public function getUpdates($chatId = ''){
-        if($chatId == '')
+    /**
+     * The function `getUpdates` retrieves updates from a chat channel using the Telegram API.
+     * 
+     * @param chatId The `chatId` parameter is used to specify the ID of the chat for which you want to
+     * retrieve updates. If no `chatId` is provided, it will use the default chat ID specified in the
+     * `config` object.
+     * 
+     * @return the data obtained from the API call to get updates.
+     */
+    public function getUpdates($chatId = '')
+    {
+        if ($chatId == '')
             $chatId = $this->config->channel;
         $post = [
             'offset' => null,
@@ -162,6 +181,36 @@ class Action{
         $this->close();
         return $data;
     }
-
+    /**
+     * The function `sendImg` sends an image along with an optional message to a specified chat ID
+     * using the Telegram API.
+     * 
+     * @param photo The "photo" parameter is the path or URL of the image file that you want to send.
+     * It can be a local file path or a URL to an image hosted online.
+     * @param message The `` parameter is used to specify a caption or message that will be
+     * sent along with the photo. It is optional and can be left empty if no caption is needed.
+     * @param chatId The chatId parameter is used to specify the ID of the chat where the image will be
+     * sent. If no chatId is provided, it will default to the value stored in the config file.
+     * 
+     * @return the data received from the API call to send a photo.
+     */
+    public function sendImg($photo, $message = '', $chatId = '')
+    {
+        if ($chatId == '')
+            $chatId = $this->config->channel;
+        $post = [
+            'chat_id' => $chatId,
+            'caption' => $message,
+            'photo' => $photo
+        ];
+        $this->init();
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, $post);
+        $data = $this->setUrl('sendPhoto');
+        $this->close();
+        return $data;
+    }
 }
-

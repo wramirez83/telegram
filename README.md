@@ -28,22 +28,32 @@ input route file and return the current file for CURFILE
 
 ## Ejemplo
 
-Para enviar un mensaje a Telegram, puedes usar el método `sendMessage()`:
+To send a message to Telegram, you can use the method `sendMessage()`:
 
 ```php
 use Wramirez83\Telegram\Telegram;
 Telegram::sendMessage('Mensaje');
 ```
 
-Para enviar un mensaje con un documento adjunto en  Telegram, puedes usar el método `sendDocument()`:
+To send a message with an attached document on Telegram, you can use the method `sendDocument()`:
 
 ```php
 use Wramirez83\Telegram\Telegram;
 Telegram::curFile('ver.txt'), 'nuevo archivos');
 ```
 
-Para ver las actualizaciones o mensajes en el canal:
+To view updates or messages in the channel:
 ```php
 use Wramirez83\Telegram\Telegram;
 $updates = Telegram::getUpdate();
 ```
+
+Send Image in a Channel you can use the method `sendPhoto()`:
+```php
+use Wramirez83\Telegram\Telegram;
+Telegram::sendPhoto($photo, $message);
+```
+
+
+###
+https://telegram-bot-sdk.readme.io/reference/getme
