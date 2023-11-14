@@ -140,7 +140,7 @@ class Action
      *
      * @return The response from the server.
      */
-    public function sendFile($file, $message = '', $chatId = '')
+    public function sendFile($file, $message, $chatId)
     {
         if ($chatId == '')
             $chatId = $this->config->channel;

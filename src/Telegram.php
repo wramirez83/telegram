@@ -45,7 +45,7 @@ class Telegram extends Action{
      */
     public static function sendDocument($file, $message = '', $chatId = ''){
         $instance = new Action();
-        return $instance->sendFile($file, $message = '', $chatId = '');
+        return $instance->sendFile($file, $message, $chatId);
     }
 
     /**
