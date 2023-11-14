@@ -2,7 +2,7 @@
     "name": "wramirez83/telegram",
     "description": "library for develop for sending telegram to message, include texts and files",
     "type": "library",
-    "version" : "1.2.0",
+    "version" : "1.2.1",
     "require": {
 
     },
